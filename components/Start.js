@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Alert } from 'react-native';
 import {
   StyleSheet,
   View,
@@ -18,6 +19,14 @@ const Start = ({ navigation }) => {
 
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 50 : 'height';
   const background = require('../assets/img/background-img.png');
+
+  // Event Handler (when user clicks 'Start Chatting')
+  const handlePress = (text, color) => {
+    if (!text) {
+      return Alert.alert('Please enter a name');
+    }
+    navigation.navigate('Chat', { name, color });
+  };
 
   return (
     <ImageBackground
@@ -99,7 +108,7 @@ const Start = ({ navigation }) => {
           >
             <Text
               style={styles.btnChat}
-              onPress={() => navigation.navigate('Chat', { name, color })}
+              onPress={() => handlePress(name, color)}
             >
               Start Chatting
             </Text>

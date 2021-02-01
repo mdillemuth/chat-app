@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
-class Chat extends Component {
-  state = {};
-  render() {
-    return (
-      <View>
-        <Text>Hey</Text>
-      </View>
-    );
-  }
-}
+const Chat = ({ route }) => {
+  const color = route.params.color;
+
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: color,
+      flex: 1,
+    },
+  });
+
+  return <View style={styles.container}></View>;
+};
 
 export default Chat;

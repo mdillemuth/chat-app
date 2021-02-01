@@ -11,7 +11,11 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Start'>
         <Stack.Screen name='Chat App' component={Start} />
-        <Stack.Screen name='Chat' component={Chat} />
+        <Stack.Screen
+          name='Chat'
+          component={Chat}
+          options={({ route }) => ({ title: route.params.name })}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
