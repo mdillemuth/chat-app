@@ -6,7 +6,7 @@ import Chat from './components/Chat';
 
 const Stack = createStackNavigator();
 
-export default function App() {
+const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Start'>
@@ -19,4 +19,4 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};

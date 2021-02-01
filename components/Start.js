@@ -14,7 +14,6 @@ import { TextInput } from 'react-native-gesture-handler';
 const Start = ({ navigation }) => {
   // Component State
   const [name, setName] = useState('');
-  const [text, setText] = useState('');
   const [color, setColor] = useState('#ffffff');
 
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 50 : 'height';
