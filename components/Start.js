@@ -126,11 +126,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    fontFamily: 'Poppins-Regular',
+    // fontFamily: 'Poppins-Regular',
   },
   title: {
     fontSize: 45,
-    fontFamily: 'Poppins-Bold',
+    // fontFamily: 'Poppins-Bold',
     fontWeight: '600',
     color: '#FFF',
     textAlign: 'center',
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
   },
   btnChat: {
     fontSize: 16,
-    fontFamily: 'Poppins-Bold',
+    // fontFamily: 'Poppins-Bold',
     fontWeight: '600',
     color: '#fff',
     padding: 20,
