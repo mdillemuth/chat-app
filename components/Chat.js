@@ -50,29 +50,25 @@ class Chat extends Component {
 
     this.authUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) {
-        try {
-          await firebase.auth().signInAnonymously();
-        } catch (error) {
-          console.error(error.message);
-        }
+        await firebase.auth().signInAnonymously();
+      } else {
+        // Update user state with currently active user data
+        this.setState({
+          user: {
+            _id: user.uid,
+            name: name,
+            avatar: 'https://placeimg.com/140/140/any',
+          },
+          messages: [],
+        });
+        // Listen for collection changes for current user
+        this.unsubscribeChatUser = this.referenceChatMessages
+          .orderBy('createdAt', 'desc')
+          .onSnapshot(this.onCollectionUpdate);
       }
 
-      // Update user state
-      this.setState({
-        user: {
-          _id: user.uid,
-          name: name,
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-        messages: [],
-      });
-
-      // Creates reference to active user's messages
+      // Creates reference to active user's messages so user can see all messages
       this.referenceChatMessages = firebase.firestore().collection('messages');
-      // Lists for collection changes of currnet user
-      this.unsubscribeChatUser = this.referenceChatMessages
-        .orderBy('createdAt', 'desc')
-        .onSnapshot(this.onCollectionUpdate);
     });
   }
 
@@ -91,9 +87,13 @@ class Chat extends Component {
       let data = doc.data(); // Grabs QueryDocumentSnapshot's data
       messages.push({
         _id: data._id,
+        text: data.text,
         createdAt: data.createdAt.toDate(),
-        text: data.text || null,
-        user: data.user,
+        user: {
+          _id: data.user._id,
+          name: data.user.name,
+          avatar: data.user.avatar,
+        },
       });
     });
     this.setState({ messages });
@@ -104,6 +104,7 @@ class Chat extends Component {
     const message = this.state.messages[0];
     this.referenceChatMessages.add({
       _id: message._id,
+      uid: this.state.uid,
       createdAt: message.createdAt,
       text: message.text || null,
       user: message.user,
