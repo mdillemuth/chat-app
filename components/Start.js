@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Alert } from 'react-native';
 import {
+  Alert,
   StyleSheet,
   View,
   Text,
@@ -14,7 +14,7 @@ import { TextInput } from 'react-native-gesture-handler';
 const Start = ({ navigation }) => {
   // Component State
   const [name, setName] = useState('');
-  const [color, setColor] = useState('#ffffff');
+  const [color, setColor] = useState('#090C08');
 
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 50 : 'height';
   const background = require('../assets/img/background-img.png');
