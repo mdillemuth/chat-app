@@ -10,8 +10,8 @@ import {
 import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat';
 import AsyncStorage from '@react-native-community/async-storage';
 import NetInfo from '@react-native-community/netinfo';
-
-// Google Firebase
+import MapView from 'react-native-maps';
+import CustomActions from './CustomActions';
 const firebase = require('firebase');
 require('firebase/firestore');
 
@@ -27,6 +27,8 @@ class Chat extends Component {
         avatar: '',
       },
       isConnected: false,
+      image: null,
+      location: null,
     };
 
     const firebaseConfig = {
@@ -46,7 +48,12 @@ class Chat extends Component {
 
     // References Firebase messages
     this.referenceChatMessages = firebase.firestore().collection('messages');
-    LogBox.ignoreLogs(['Setting a timer']);
+    // Ignores certain warning messages in console
+    LogBox.ignoreLogs([
+      'Setting a timer',
+      'undefined',
+      'Animated.event now requires a second argument for options',
+    ]);
   }
 
   componentDidMount() {
@@ -116,6 +123,8 @@ class Chat extends Component {
           name: data.user.name,
           avatar: data.user.avatar,
         },
+        image: data.image || '',
+        location: data.location || null,
       });
     });
     this.setState({ messages });
@@ -160,8 +169,10 @@ class Chat extends Component {
       _id: message._id,
       uid: this.state.uid,
       createdAt: message.createdAt,
-      text: message.text || null,
+      text: message.text || '',
       user: message.user,
+      image: message.image || '',
+      location: message.location || null,
     });
   }
 
@@ -200,6 +211,35 @@ class Chat extends Component {
     );
   }
 
+  // Returns a MapView that shows user's location
+  renderCustomView(props) {
+    const { currentMessage } = props;
+    if (currentMessage.location) {
+      return (
+        <MapView
+          showsUserLocation={true}
+          style={{
+            width: 150,
+            height: 100,
+            borderRadius: 15,
+            margin: 5,
+          }}
+          region={{
+            longitude: Number(currentMessage.location.longitude),
+            latitude: Number(currentMessage.location.latitude),
+            longitudeDelta: 0.0421,
+            latitudeDelta: 0.0922,
+          }}
+        />
+      );
+    }
+    return null;
+  }
+
+  renderActions = (props) => {
+    return <CustomActions {...props} />;
+  };
+
   render() {
     const { name, color } = this.props.route.params;
     const { messages } = this.state;
@@ -217,6 +257,8 @@ class Chat extends Component {
           renderBubble={this.renderBubble.bind(this)}
           renderInputToolbar={this.renderInputToolbar.bind(this)}
           renderUsernameOnMessage={true}
+          renderCustomView={this.renderCustomView}
+          renderActions={this.renderActions}
           messages={messages}
           onSend={(messages) => this.onSend(messages)}
           user={{

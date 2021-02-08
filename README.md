@@ -1,15 +1,22 @@
-# Chat App
+# Chat App 💬📱
 
-A React Native mobile chat app that provides users with a chat interface and options to share images and their location.
+![chat-app](/showcase-chat-app.gif)
 
-## User Stories
+## Description
 
-- As a new user, I want to be able to easily enter a chat room so I can quickly start talking to my friends and family
-- As a user, I want to be able to send messages to my friends and family members to exchange the latest news
-- As a user, I want to send images to my friends to show them what I'm currently doing
-- As a user, I want to share my location with my friends to show them where I am
-- As a user, I want to be able to read my messages offline so I can reread conversations at any time
-- As a user with a visual impairment, I want to use a chat app that is compatible with a screen reader so that I can engage with a chat interface
+A chat app for mobile devices built with React Native. The app provides users with a chat interface and options to share images and their location.
+
+The app is written in React Native and developed using Expo. Styling is in accordance with a provided design assets. The app stores chat conversations in Google Firestore Database and uses Google Firebase authentication to authenticate uses anonymously. Chat conversations are stored locally as well and the app is accessible while the user is offline. The Gifted Chat library is used to create the chat interface and its functionality.
+
+The app allows users to pick and send images from their phone's image library provided the user grants the app permission to access their media library and camera. Users can share their location by enabling the app to read user location data.
+
+## Technologies
+
+- React Native
+- Expo
+- Google Firestore Database
+- Gifted Chat library
+- Android Studio
 
 ## Key Features
 
@@ -18,9 +25,46 @@ A React Native mobile chat app that provides users with a chat interface and opt
 - The chat must provide users with two additional communication features: sending images and location data
 - Data gets stored online and offline
 
-## Key Technologies
+## Get Started 🚀
 
-- React Native
-- Expo
-- Google Firestone
-- Gifted Chat library
+### Technical Requirements
+
+- Node.js
+- Expo Command Line Interface
+
+```
+npm install expo-cli --global
+```
+
+- If you would like to run the app on your mobile device, you'll need to install the Expo app through your device's app store (iOS or Android)
+- You will also need an Expo account which can be created via [Expo.io](https://expo.io)
+- You will need to login into Expo in order to access the App
+
+  - Logging into Expo through the CLI on your machine
+  - Logging into Expo on your mobile device in the Expo app
+
+- If you would like to run the app on your machine through a simulator/emulator, you will either need
+  - [Android Studio](https://docs.expo.io/workflow/android-studio-emulator/)
+  - [iOS Simulator](https://docs.expo.io/workflow/ios-simulator/)
+
+### Installing Dependencies
+
+In the project directory install the application's dependencies.
+
+```
+npm install
+```
+
+### Running the App
+
+```
+expo start
+```
+
+#### Running the App on Your Mobile Device
+
+After using the "expo start" command to run the app, you can use 'e' to send yourself an email with a link to the app. This can then be opened in your mobile device to run the app through your mobile device's Expo app. Alternatively, you can use your mobile device to scan the provided QR code displayed in the command line interface.
+
+#### Running the App with Android Studio or
+
+With the command line interface open after using the 'expo start' command, press 'a' to run the app with an Android emulator, or press 'i' to run the app with iOS simulator.
